@@ -1,0 +1,14 @@
+.textNumber {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 16px;
+}
+
+button {
+    font-size: 16px;
+}
+
+.buttonReset {
+    margin-top: 16px;
+    margin-left: 8px;
+}
