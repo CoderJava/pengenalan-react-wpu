@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Simple Counter</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="simple-counter-styles.css" />
+  </head>
+  <body>
+    <div id="root">
+      <script type="text/babel">
+        const container = document.getElementById("root");
+        const root = ReactDOM.createRoot(container);
+
+        const Operation = Object.freeze({
+          TAMBAH: Symbol("tambah"),
+          KURANG: Symbol("kurang"),
+          RESET: Symbol("reset"),
+        });
+
+        root.render(<SimpleCounter />);
+
+        function ButtonCounter({ operation, onClick }) {
+          let label = "";
+          if (operation == Operation.TAMBAH) {
+            label = "+";
+          } else if (operation == Operation.KURANG) {
+            label = "-";
+          } else {
+            label = "Reset";
+          }
+
+          return <button onClick={onClick}>{label}</button>;
+        }
+
+        function SimpleCounter() {
+          const [counter, setCounter] = React.useState(0);
+
+          function doCounter(operation) {
+            if (operation == Operation.TAMBAH) {
+              setCounter(counter + 1);
+            } else if (operation == Operation.KURANG) {
+              setCounter(counter - 1);
+            } else {
+              setCounter(0);
+            }
+          }
+
+          return (
+            <div className="flex-container-column">
+              <div className="flex-container-row">
+                <ButtonCounter
+                  operation={Operation.KURANG}
+                  onClick={(e) => doCounter(Operation.KURANG)}
+                />
+                {counter}
+                <ButtonCounter
+                  operation={Operation.TAMBAH}
+                  onClick={(e) => doCounter(Operation.TAMBAH)}
+                />
+              </div>
+              <ButtonCounter
+                operation={Operation.RESET}
+                onClick={(e) => doCounter(Operation.RESET)}
+              />
+            </div>
+          );
+        }
+      </script>
+    </div>
+  </body>
+</html>
